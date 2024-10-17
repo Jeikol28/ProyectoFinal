@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #16191C;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+
+.site-header {
+  background-color: #000;
+  width: 100%;
+  height: 134px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.site-header .logo {
+  width: 200px;
+  height: 141.77px;
+}
+
+.navbar {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar .nav-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 119px;
+  height: 51px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .nav-btn:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 623px;
+  background-image: url("../img/fondo1.jpeg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.hero .hero-content {
+  position: relative;
+  z-index: 1;
+}
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.hero p {
+  font-size: 1.2rem;
+}
+
+.info-section {
+  text-align: center;
+  padding: 50px;
+  background-color: #16191C;
+}
+.info-section h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+.info-section .info-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.info-section .info-box {
+  width: 574px;
+  height: 291px;
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 30px;
+}
+.info-section .info-box img {
+  width: 100%;
+  height: 132px;
+}
+.info-section .info-box .info-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 159px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.info-section .info-box p {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  right: 20px;
+  font-size: 1rem;
+  color: #fff;
+}
+.info-section .info-box .info-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 574px;
+  height: 75px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 75px;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=main.css.map */
