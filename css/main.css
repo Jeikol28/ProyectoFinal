@@ -199,4 +199,11 @@ body {
   height: auto;
 }
 
+/* Imagen de fondo historia */
+.historia-hero {
+  background-image: url("../img/fondo3.jpeg"); /* Cambia la imagen aquí */
+  background-size: cover;
+  background-position: center;
+}
+
 /*# sourceMappingURL=main.css.map */
