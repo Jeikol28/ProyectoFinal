@@ -101,14 +101,14 @@ body {
 }
 
 
-
+/* Seccion de informacion  */
 .info-section {
     text-align: center;
-    padding: 50px;  /* Mantener el padding superior e inferior */
+    padding: 50px;  
     background-color: $clr-main;
     width: 100%;
     height: 623px;
-    margin: 0 auto; /* Centrar la sección */
+    margin: 0 auto; 
 }
 
 .info-section h2 {
@@ -120,9 +120,9 @@ body {
 .info-container {
     display: flex;
     justify-content: center;
-    gap: 35px; /* Espacio entre los cuadros */
-    width: 100%; /* Asegurar que use todo el ancho disponible */
-    height: 100%; /* Usar toda la altura de la sección */
+    gap: 35px; 
+    width: 100%; 
+    height: 100%; 
 }
 
 .info-box {
@@ -179,7 +179,7 @@ body {
     height: 250px; 
     background-color: $clr-black;
     padding: 20px 0; 
-    margin-top: 130px; 
+    margin-top: 220px; 
 }
 
 .footer-content {
@@ -207,9 +207,63 @@ body {
     height: auto;
 }
 
+/* Historia */
 /* Imagen de fondo historia */
 .historia-hero {
-    background-image: url('../img/fondo3.jpeg'); /* Cambia la imagen aquí */
+    background-image: url('../img/fondo3.jpeg'); 
     background-size: cover;
     background-position: center;
+}
+.text-section {
+    margin-bottom: 40px;
+  }
+  
+  .text-section p {
+    line-height: 1.6;
+    padding-bottom: 20px;
+  }
+  
+  .historia {
+    margin-top: 50px; 
+}
+
+/* footer */
+.historia-footer {
+    margin-top: -60px; 
+}
+
+/* ComoJugar */
+/* Imagen  */
+.comoJugar-hero {
+    background-image: url('../img/teclado.png'); 
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* footer */
+.comoJugar-footer {
+    margin-top: -70px; 
+}
+
+/* Utilizables */
+/* Imagen*/
+.utilizables-hero {
+    background-image: url('../img/fondo2.jpeg'); 
+    background-size: cover;
+    background-position: center;
+}
+
+.section-one {
+    margin-top: 40px; /* Ajusta este valor como lo necesites */
+}
+
+.section-two {
+    margin-top: -80px; /* Ajusta este valor como lo necesites */
+}
+
+
+/* footer */
+.utilizables-footer {
+    margin-top: -20px; 
 }
