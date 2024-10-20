@@ -36,9 +36,9 @@ function create() {
 
     platforms.create(450, 650, 'ground').refreshBody();
 
-    platforms.create(730, 400, 'plataforma');
-    platforms.create(170, 300, 'plataforma');
-    platforms.create(770, 200, 'plataforma');
+    platforms.create(730, 350, 'plataforma');
+    platforms.create(120, 250, 'plataforma');
+    platforms.create(840, 150, 'plataforma');
 
     //Jugador
     player= this.physics.add.image(100, 450, 'personaje')
@@ -49,6 +49,37 @@ function create() {
     player.body.setGravityY(300);//modificar gravedad solo personaje
 
     this.physics.add.collider(player, platforms);//detecta la colicion
+
+   //estrellas
+   starts = this.physics.add.group({
+    key: 'estrella',
+    repeat: 11,
+    setXY:{x: 12, y: 0, stepX:80}
+
+   });
+
+   //da valorr de rebote
+   starts.children.iterate(function(child){
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+   });
+
+   this.physics.add.collider(starts, platforms)
+
+   //enemigos(bombas)
+   bombas = this.physics.add.group({
+    key: 'enemigo',
+    repeat: 1,
+    setXY:{x: 520, y: 100, stepX:80}
+
+   });
+
+   bombas.children.iterate(function(child){
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+   });
+
+   this.physics.add.collider(bombas, platforms);
 
    
 }
