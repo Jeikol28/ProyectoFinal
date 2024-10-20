@@ -27,6 +27,7 @@ function preload() {
  this.load.image('estrella','img/estrellaJuego.png')
  this.load.image('enemigo','img/bolaJuego.png')
  this.load.image('personaje','img/personajeJuego.png')
+ this.load.image('poder','img/PoweUp.png')
 }
 
 function create() {
@@ -81,6 +82,9 @@ function create() {
 
    this.physics.add.collider(bombas, platforms);
 
+    //poder
+    poder = this.physics.add.image(730, 450, 'poder');
+    this.physics.add.collider(poder, platforms);
    
 }
 
