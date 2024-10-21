@@ -1,4 +1,5 @@
 @import 'abstracts/variables';
+@import 'abstracts/mixins';
 @import 'base/global';
 @import 'layout/header';
 @import 'layout/navbar';
@@ -8,9 +9,6 @@
 @import 'pages/historia';
 @import 'pages/comoJugar';
 @import 'pages/utilizables';
-
-
-
-
+@import 'layout/responsive';
 
 

@@ -1,0 +1,52 @@
+// Media Queries para Responsiv
+@include respond-to($tablet-portrait) {
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px;
+    }
+
+    .site-header .logo {
+        width: 150px; 
+    }
+
+    .navbar {
+        margin-right: 0;
+        flex-direction: column; 
+        gap: 5px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem; 
+
+    .hero p {
+        font-size: 1rem; 
+    }
+
+    .info-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px; 
+    }
+
+    .info-box {
+        width: 90%; 
+        height: auto; 
+        margin-bottom: 20px; 
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .social-navbar {
+        gap: 20px; 
+        margin-right: 0;
+    }
+}
+
+
+}
