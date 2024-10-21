@@ -18,6 +18,7 @@ var config = {
     }
 };
 
+
 var game = new Phaser.Game(config);
 
 function preload() {
@@ -91,3 +92,14 @@ function create() {
 function update() {
  
 }
+
+
+//Pantalla horizontal
+// Agrega un evento que se ejecuta cuando la ventana se redimensiona
+window.addEventListener('resize', function() {
+    var canvas = document.querySelector('canvas');
+    // Establece el ancho del canvas al 100% del contenedor padre
+    canvas.style.width = '100%'; 
+    // Ajusta la altura del canvas a 'auto' para mantener la relación de aspecto original
+    canvas.style.height = 'auto'; 
+});
