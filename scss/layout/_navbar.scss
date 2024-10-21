@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    gap: 10px;
+    margin-right: 35px; 
+
+}
+
+.navbar .nav-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 119px;
+    height: 51px;
+    background-color: transparent;
+    color: $clr-white;
+    border: 1px solid $clr-border;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .nav-btn:hover {
+    background-color: $clr-border;
+    color: $clr-white;
+}

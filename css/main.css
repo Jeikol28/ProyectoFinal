@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* Variables de color */
 /* Color de fondo principal */
 /* Estilos globales */
@@ -29,7 +28,6 @@ body {
   height: 141.77px;
 }
 
-/* Navegación */
 .navbar {
   display: flex;
   gap: 10px;
