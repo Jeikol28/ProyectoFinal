@@ -27,30 +27,54 @@ function preload() {
  this.load.image('ground','img/ground.png')
  this.load.image('estrella','img/estrellaJuego.png')
  this.load.image('enemigo','img/bolaJuego.png')
- this.load.image('personaje','img/personajeJuego.png')
+ this.load.spritesheet('personaje','img/personaje.png', {frameWidth: 32, frameHeight: 48})
+
  this.load.image('poder','img/PoweUp.png')
 }
 
 function create() {
     this.add.image(450,300, 'escenario');
     //Plataformas
-    platforms = this.physics.add.staticGroup();
-
-    platforms.create(450, 650, 'ground').refreshBody();
-
-    platforms.create(730, 350, 'plataforma');
-    platforms.create(120, 250, 'plataforma');
-    platforms.create(840, 150, 'plataforma');
+    platformas = this.physics.add.staticGroup();
+    platformas.create(450, 650, 'ground').refreshBody();
+    platformas.create(730, 350, 'plataforma');
+    platformas.create(120, 250, 'plataforma');
+    platformas.create(840, 150, 'plataforma');
 
     //Jugador
-    player= this.physics.add.image(100, 450, 'personaje')
+    jugador = this.physics.add.sprite(100, 450, 'personaje')
     
-    player.setCollideWorldBounds(true);
-    player.setBounce(0.2);// rebote cuando cae
+    jugador .setCollideWorldBounds(true);
+    jugador .setBounce(0.2);// rebote cuando cae
 
-    player.body.setGravityY(300);//modificar gravedad solo personaje
+   
 
-    this.physics.add.collider(player, platforms);//detecta la colicion
+    this.physics.add.collider(jugador, platformas);//detecta la colicion
+
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('personaje', {start: 0, end: 3}),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'static',
+        frames: [{key: 'personaje', frame: 4 }], 
+        frameRate: 20
+       
+    });
+    
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('personaje', {start: 5, end: 8}),
+        frameRate: 10,
+        repeat: -1
+    });
+    //contro personaje
+    cursorKeys = this.input.keyboard.createCursorKeys();
+    
+    
 
    //estrellas
    starts = this.physics.add.group({
@@ -66,7 +90,7 @@ function create() {
 
    });
 
-   this.physics.add.collider(starts, platforms)
+   this.physics.add.collider(starts, platformas)
 
    //enemigos(bombas)
    bombas = this.physics.add.group({
@@ -81,16 +105,31 @@ function create() {
 
    });
 
-   this.physics.add.collider(bombas, platforms);
+   this.physics.add.collider(bombas, platformas);
 
     //poder
     poder = this.physics.add.image(730, 450, 'poder');
-    this.physics.add.collider(poder, platforms);
+    this.physics.add.collider(poder, platformas);
    
 }
 
 function update() {
- 
+    if (cursorKeys.left.isDown) {
+        jugador.setVelocityX(-160);
+        jugador.anims.play('left', true);
+    }
+    else if (cursorKeys.right.isDown) {
+        jugador.setVelocityX(160);
+        jugador.anims.play('right', true);
+    }else{
+        jugador.setVelocityX(0);
+        jugador.anims.play('static');
+    }
+
+    if (cursorKeys.up.isDown && jugador.body.touching.down) {
+        jugador.setVelocityY(-370);
+    }
+    
 }
 
 
