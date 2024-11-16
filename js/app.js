@@ -18,6 +18,9 @@ var config = {
     }
 };
 
+var puntuacion = 0;
+var puntuacionText;
+var gameOver = false;
 
 var game = new Phaser.Game(config);
 
@@ -83,22 +86,21 @@ function create() {
     setXY:{x: 12, y: 0, stepX:80}
 
    });
+   
 
    //da valorr de rebote
    starts.children.iterate(function(child){
-    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
    });
-
+    bombas = this.physics.add.group();
    this.physics.add.collider(starts, platformas)
 
-   //enemigos(bombas)
-   bombas = this.physics.add.group({
-    key: 'enemigo',
-    repeat: 1,
-    setXY:{x: 520, y: 100, stepX:80}
+   this.physics.add.collider(jugador, bombas, golpeBomba, null, this);
+  
+   
 
-   });
+ 
 
    bombas.children.iterate(function(child){
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
@@ -111,9 +113,16 @@ function create() {
     poder = this.physics.add.image(730, 450, 'poder');
     this.physics.add.collider(poder, platformas);
    
+    this.physics.add.overlap(jugador,starts,colectarEstrellas, null, true);
+
+    puntuacionText = this.add.text(16, 16, 'Puntuacion: 0 ',{fontSize: '32px', fill: 'white'});
 }
 
 function update() {
+    if(gameOver) {
+        return
+    }
+
     if (cursorKeys.left.isDown) {
         jugador.setVelocityX(-160);
         jugador.anims.play('left', true);
@@ -129,9 +138,36 @@ function update() {
     if (cursorKeys.up.isDown && jugador.body.touching.down) {
         jugador.setVelocityY(-370);
     }
+
+   
     
 }
 
+function colectarEstrellas(jugador, estrella){
+    estrella.disableBody(true,true);
+    puntuacion += 10;
+    puntuacionText.setText('Puntuacion: ' + puntuacion);
+    if(starts.countActive(true) === 0){
+        starts.children.iterate(function(child){
+        child.enableBody(true, child.x, child.y, true, true);
+    });
+    var x = (jugador.x ) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+    var bomba = bombas.create(x, 16, 'enemigo');
+    bomba.setBounce(1);
+    bomba.setCollideWorldBounds(true);
+    bomba.setVelocity(Phaser.Math.Between(-200, 200), 20);
+    }
+
+   
+}
+
+function golpeBomba(jugador, bomba){
+    this.physics.pause();
+    jugador.setTint(0xff0000);
+    jugador.anims.play('turn');
+    gameOver = true;
+}
 
 //Pantalla horizontal
 // Agrega un evento que se ejecuta cuando la ventana se redimensiona
