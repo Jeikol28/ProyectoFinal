@@ -26,6 +26,7 @@ var nivelActual = 1; // Nivel inicial
 var gruposRecolectados = 0; // Grupos recolectados en el nivel actual
 var maxGruposPorNivel = [3, 3, 3]; // Máximo de grupos necesarios por nivel
 var estrellasPorGrupo = [4, 6, 12]; // Estrellas por grupo para cada nivel
+var musicaFondo;
 
 // Referencias a objetos
 var platformas;
@@ -34,6 +35,7 @@ var cursorKeys;
 var starts;
 var bombas;
 
+
 function preload() {
     this.load.image('escenario', 'img/Prueba.png');
     this.load.image('plataforma', 'img/PlataformasJuego.png');
@@ -41,10 +43,21 @@ function preload() {
     this.load.image('estrella', 'img/estrellaJuego.png');
     this.load.image('enemigo', 'img/bolaJuego.png');
     this.load.spritesheet('personaje', 'img/personaje.png', { frameWidth: 32, frameHeight: 48 });
+
+    // Archivos de audio
+    this.load.audio('musicaFondo', 'aud/sonidoFondo.mp3');
+    this.load.audio('sonidoEstrella', 'aud/recolectarEstrella.mp3');
+    this.load.audio('sonidoNivel', 'aud/nivel.mp3');
+    this.load.audio('sonidoPeligro', 'aud/peligro.mp3');
+    this.load.audio('sonidoMuerte', 'aud/gameOver.wav');
 }
 
 function create() {
     this.add.image(450, 300, 'escenario');
+
+
+    musicaFondo = this.sound.add('musicaFondo', { volume: 0.5, loop: true });
+    musicaFondo.play();
 
     // Plataformas
     platformas = this.physics.add.staticGroup();
@@ -155,6 +168,7 @@ function inicializarEstrellas() {
 // Recolectar estrellas
 function colectarEstrellas(jugador, estrella) {
     estrella.disableBody(true, true);
+    this.sound.play('sonidoEstrella', { volume: 0.7 });
     puntuacion += 10;
     puntuacionText.setText('Puntuación: ' + puntuacion);
 
@@ -184,6 +198,7 @@ function colectarEstrellas(jugador, estrella) {
 
 // Incrementar enemigos según nivel actual
 function agregarEnemigosPorNivel() {
+    this.sound.play('sonidoPeligro', { volume: 0.7 });
     let enemigosPorGrupo = 1; // Default: 1 enemigo por grupo recolectado
 
     if (nivelActual === 2) {
@@ -202,6 +217,7 @@ function agregarEnemigosPorNivel() {
 }
 // Mostrar transición entre niveles
 function mostrarTransicion(nivel) {
+    this.sound.play('sonidoNivel', { volume: 0.7 });
     let mensaje = this.add.text(300, 300, '¡Nivel ' + nivel + '!', { fontSize: '48px', fill: 'yellow' });
     setTimeout(() => {
         mensaje.destroy();
@@ -215,6 +231,7 @@ function reiniciarJugador() {
 
 // Golpe de bomba
 function golpeBomba(jugador, bomba) {
+    this.sound.play('sonidoMuerte', { volume: 0.7 });
     this.physics.pause();
     jugador.setTint(0xff0000);
     jugador.anims.play('static');
