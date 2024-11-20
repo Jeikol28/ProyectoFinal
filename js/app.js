@@ -56,7 +56,7 @@ function create() {
     this.add.image(450, 300, 'escenario');
 
 
-    musicaFondo = this.sound.add('musicaFondo', { volume: 0.5, loop: true });
+    musicaFondo = this.sound.add('musicaFondo', { volume: 0.3, loop: true });
     musicaFondo.play();
 
     // Plataformas
