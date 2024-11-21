@@ -53,6 +53,7 @@ function preload() {
     this.load.audio('sonidoNivel', 'aud/nivel.mp3');
     this.load.audio('sonidoPeligro', 'aud/peligro.mp3');
     this.load.audio('sonidoMuerte', 'aud/gameOver.wav');
+    this.load.audio('sonidoPowerUp', 'aud/sonidoPowerUp.mp3');
 }
 
 function create() {
@@ -172,6 +173,7 @@ function generarPowerUpEscudo(poder) {
 
 // Recoger el power-up escudo
 function recogerPowerUpEscudo(jugador, powerUp) {
+    this.sound.play('sonidoPowerUp', { volume: 0.7 });
     powerUp.disableBody(true, true);
     activarEscudo.call(this);
 }
