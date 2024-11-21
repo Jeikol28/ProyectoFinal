@@ -34,7 +34,9 @@ var jugador;
 var cursorKeys;
 var starts;
 var bombas;
-
+var escudoActivo = false;
+var duracionEscudo = 5000; // Duración del escudo en milisegundos
+var indicadorEscudo;
 
 function preload() {
     this.load.image('escenario', 'img/Prueba.png');
@@ -42,6 +44,7 @@ function preload() {
     this.load.image('ground', 'img/ground.png');
     this.load.image('estrella', 'img/estrellaJuego.png');
     this.load.image('enemigo', 'img/bolaJuego.png');
+    this.load.image('powerUpEscudo', 'img/PoweUp.png');
     this.load.spritesheet('personaje', 'img/personaje.png', { frameWidth: 32, frameHeight: 48 });
 
     // Archivos de audio
@@ -54,7 +57,6 @@ function preload() {
 
 function create() {
     this.add.image(450, 300, 'escenario');
-
 
     musicaFondo = this.sound.add('musicaFondo', { volume: 0.3, loop: true });
     musicaFondo.play();
@@ -106,8 +108,18 @@ function create() {
     this.physics.add.collider(bombas, platformas);
     this.physics.add.collider(jugador, bombas, golpeBomba, null, this);
 
+    // Power-Up Escudo
+    var poder = this.physics.add.group();
+    generarPowerUpEscudo.call(this, poder);
+
+    this.physics.add.collider(poder, platformas);
+    this.physics.add.overlap(jugador, poder, recogerPowerUpEscudo, null, this);
+
     // Texto de puntuación
     puntuacionText = this.add.text(16, 16, 'Puntuación: 0', { fontSize: '32px', fill: 'white' });
+
+    // Indicador del escudo
+    indicadorEscudo = this.add.text(16, 50, '', { fontSize: '24px', fill: 'yellow' });
 }
 
 function update() {
@@ -133,37 +145,46 @@ function update() {
 // Inicializar un nuevo grupo de estrellas
 function inicializarEstrellas() {
     starts.clear(true, true);
-
-    // Todas las posiciones posibles para las estrellas
     let posicionesTotales = [
-        { x: 50, y: 0 },
-        { x: 150, y: 0 },
-        { x: 250, y: 0 },
-        { x: 350, y: 0 },
-        { x: 450, y: 0 },
-        { x: 550, y: 0 },
-        { x: 730, y: 250 },
-        { x: 830, y: 250 },
-        { x: 840, y: 50 },
-        { x: 300, y: 200 }, // Posición nueva
-        { x: 600, y: 150 }, // Posición nueva
-        { x: 200, y: 300 }  // Posición nueva
+        { x: 50, y: 0 }, { x: 150, y: 0 }, { x: 250, y: 0 },
+        { x: 350, y: 0 }, { x: 450, y: 0 }, { x: 550, y: 0 },
+        { x: 730, y: 250 }, { x: 830, y: 250 }, { x: 840, y: 50 }
     ];
 
-    // Barajamos las posiciones para que sean aleatorias
     Phaser.Utils.Array.Shuffle(posicionesTotales);
-
-    // Seleccionamos un subconjunto según las estrellas necesarias para el nivel
     let totalEstrellas = estrellasPorGrupo[nivelActual - 1];
     let posicionesSeleccionadas = posicionesTotales.slice(0, totalEstrellas);
 
-    // Creamos las estrellas en las posiciones seleccionadas
     posicionesSeleccionadas.forEach(pos => {
         let estrella = starts.create(pos.x, pos.y, 'estrella');
         estrella.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 }
 
+// Generar el power-up escudo
+function generarPowerUpEscudo(poder) {
+    let x = Phaser.Math.Between(50, 850);
+    let powerUp = poder.create(x, 16, 'powerUpEscudo');
+    powerUp.setBounce(1);
+    powerUp.setCollideWorldBounds(true);
+    powerUp.setVelocity(Phaser.Math.Between(-100, 100), 20);
+}
+
+// Recoger el power-up escudo
+function recogerPowerUpEscudo(jugador, powerUp) {
+    powerUp.disableBody(true, true);
+    activarEscudo.call(this);
+}
+
+// Activar el escudo
+function activarEscudo() {
+    escudoActivo = true;
+    indicadorEscudo.setText('¡Escudo activo!');
+    setTimeout(() => {
+        escudoActivo = false;
+        indicadorEscudo.setText('');
+    }, duracionEscudo);
+}
 
 // Recolectar estrellas
 function colectarEstrellas(jugador, estrella) {
@@ -174,8 +195,6 @@ function colectarEstrellas(jugador, estrella) {
 
     if (starts.countActive(true) === 0) {
         gruposRecolectados++;
-
-        // Incrementar enemigos según el nivel actual
         agregarEnemigosPorNivel.call(this);
 
         if (gruposRecolectados < maxGruposPorNivel[nivelActual - 1]) {
@@ -184,7 +203,7 @@ function colectarEstrellas(jugador, estrella) {
             if (nivelActual < estrellasPorGrupo.length) {
                 nivelActual++;
                 gruposRecolectados = 0;
-                bombas.clear(true, true); // Limpiar bombas al pasar de nivel
+                bombas.clear(true, true);
                 inicializarEstrellas.call(this);
                 reiniciarJugador();
                 mostrarTransicion.call(this, nivelActual);
@@ -199,14 +218,7 @@ function colectarEstrellas(jugador, estrella) {
 // Incrementar enemigos según nivel actual
 function agregarEnemigosPorNivel() {
     this.sound.play('sonidoPeligro', { volume: 0.7 });
-    let enemigosPorGrupo = 1; // Default: 1 enemigo por grupo recolectado
-
-    if (nivelActual === 2) {
-        enemigosPorGrupo = 2; // En nivel 2, aparecen 2 enemigos por grupo
-    } else if (nivelActual === 3) {
-        enemigosPorGrupo = 3; // En nivel 3, opcionalmente puedes aumentar a 3 enemigos
-    }
-
+    let enemigosPorGrupo = nivelActual;
     for (let i = 0; i < enemigosPorGrupo; i++) {
         let x = Phaser.Math.Between(50, 850);
         let enemigo = bombas.create(x, 16, 'enemigo');
@@ -214,14 +226,6 @@ function agregarEnemigosPorNivel() {
         enemigo.setCollideWorldBounds(true);
         enemigo.setVelocity(Phaser.Math.Between(-200, 200), 20);
     }
-}
-// Mostrar transición entre niveles
-function mostrarTransicion(nivel) {
-    this.sound.play('sonidoNivel', { volume: 0.7 });
-    let mensaje = this.add.text(300, 300, '¡Nivel ' + nivel + '!', { fontSize: '48px', fill: 'yellow' });
-    setTimeout(() => {
-        mensaje.destroy();
-    }, 2000);
 }
 
 // Reiniciar posición del jugador
@@ -231,11 +235,22 @@ function reiniciarJugador() {
 
 // Golpe de bomba
 function golpeBomba(jugador, bomba) {
-    this.sound.play('sonidoMuerte', { volume: 0.7 });
-    this.physics.pause();
-    jugador.setTint(0xff0000);
-    jugador.anims.play('static');
-    gameOver = true;
+    if (escudoActivo) {
+        bomba.disableBody(true, true);
+    } else {
+        this.sound.play('sonidoMuerte', { volume: 0.7 });
+        this.physics.pause();
+        jugador.setTint(0xff0000);
+        jugador.anims.play('static');
+        gameOver = true;
+    }
+}
+
+// Mostrar transición de nivel
+function mostrarTransicion(nivel) {
+    this.sound.play('sonidoNivel', { volume: 0.7 });
+    let mensaje = this.add.text(250, 300, '¡Nivel ' + nivel + '!', { fontSize: '48px', fill: 'yellow' });
+    setTimeout(() => mensaje.destroy(), 2000);
 }
 
 //Pantalla horizontal
