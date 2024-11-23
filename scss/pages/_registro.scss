@@ -1,0 +1,13 @@
+.register-container {
+    @extend .login-container;
+
+    .register-box {
+        @extend .login-box;
+
+        form {
+            label, input, button {
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
