@@ -1,69 +1,55 @@
 <?php
-    require 'config.php'; 
+require 'config.php'; 
+session_start();
 
-    session_start();
+// Inicializar mensaje de error como vacío
+$error = '';
 
-    // Verifica si el formulario fue enviado
-    if ($_POST) {
-        
-        $usuario = $_POST['nombre_usuario'];
-        $contraseña = $_POST['contraseña'];
+// Verifica si el formulario fue enviado mediante POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener datos enviados desde el formulario
+    $usuario = trim($_POST['nombre_usuario']);
+    $contraseña = $_POST['contraseña'];
 
+    // Verificar si los campos están vacíos
+    if (!empty($usuario) && !empty($contraseña)) {
         // Buscar al usuario en la base de datos
         $usuarioDB = $database->select('tb_usuarios', '*', [
             'nombre_usuario' => $usuario
         ]);
 
-        // Verificar si el usuario existe y la contraseña es correcta
+        // Verificar si el usuario existe y la contraseña es válida
         if (count($usuarioDB) > 0 && password_verify($contraseña, $usuarioDB[0]['contraseña'])) {
-            // Usuario válido, iniciar sesión
+            // Iniciar sesión
             $_SESSION['id_usuario'] = $usuarioDB[0]['id_usuario'];
             $_SESSION['nombre_usuario'] = $usuarioDB[0]['nombre_usuario'];
-            header('Location: ./login.php'); 
+
+            // Redirigir al usuario a la página principal
+            header('Location: index.html');
             exit();
         } else {
-          
+            // Error: Usuario o contraseña incorrectos
             $error = "Usuario o contraseña incorrectos.";
         }
+    } else {
+        $error = "Por favor, completa todos los campos.";
     }
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"> 
-    <link rel="stylesheet" href="css/main.css"> 
-    <title>Iniciar sesión</title>
+    <title>Procesando Login</title>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="logo">
-                <img src="img/logo.png" alt="Logo">
-            </div>
-            <h1>Bienvenido de vuelta</h1>
-            <!-- Formulario de inicio de sesión -->
-            <form action="./login.php" method="POST">
-                <label for="nombre_usuario">Nombre de usuario</label>
-                <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Ingresa tu nombre de usuario" required>
-
-                <label for="contraseña">Contraseña</label>
-                <input type="password" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña" required>
-
-                <button type="submit">Iniciar sesión</button>
-            </form>
-            <p>¿Todavía no tienes una cuenta? <a href="registro.php">Crear una ahora</a></p>
-
-            <!-- Mostrar error si existe -->
-            <?php if (isset($error)): ?>
-                <div class="error" style="color: red; text-align: center; margin-top: 10px;">
-                    <p><?php echo $error; ?></p>
-                </div>
-            <?php endif; ?>
+    <!-- Mostrar error si existe -->
+    <?php if (!empty($error)): ?>
+        <div style="color: red; text-align: center; margin-top: 10px;">
+            <p><?php echo htmlspecialchars($error); ?></p>
         </div>
-    </div>
+    <?php endif; ?>
 </body>
 </html>
 

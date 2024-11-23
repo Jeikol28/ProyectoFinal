@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +14,20 @@
             align-items: center;
             background: #16191C;
             height: 100vh; 
-        overflow: hidden; 
+            overflow: hidden; 
         }
 
         canvas {
-        max-width: 100%; 
-        max-height: 100%; 
-    }
+            max-width: 100%; 
+            max-height: 100%; 
+        }
 
     </style>
 </head>
 <body>
-  <a href="index.html" class="back-btn">Inicio</a>
+    <a href="index.html" class="back-btn">Inicio</a>
 
     <script src="js/vendor/phaser.min.js"></script>
-  <script src="js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

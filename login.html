@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/main.css"> 
+    <title>Iniciar sesión</title>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="img/logo.png" alt="Logo">
+            </div>
+            <h1>Bienvenido de vuelta</h1>
+            <!-- Formulario de inicio de sesión -->
+            <form action="./login.php" method="POST">
+                <label for="nombre_usuario">Nombre de usuario</label>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Ingresa tu nombre de usuario" required>
+
+                <label for="contraseña">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña" required>
+
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <p>¿Todavía no tienes una cuenta? <a href="registro.php">Crear una ahora</a></p>
+
+            <!-- Mostrar error si existe -->
+            <?php if (isset($error)): ?>
+                <div class="error" style="color: red; text-align: center; margin-top: 10px;">
+                    <p><?php echo $error; ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</body>
+</html>
+
