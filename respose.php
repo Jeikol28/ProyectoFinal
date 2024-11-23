@@ -1,29 +1,29 @@
 <?php
-    require 'config.php';  // Incluye la configuración de la base de datos
+    require 'config.php';  
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validar que los campos del formulario no estén vacíos
         if (isset($_POST['nombre_usuario'], $_POST['contraseña'], $_POST['correo'])) {
             $nombre_usuario = trim($_POST['nombre_usuario']);
-            $contraseña = trim($_POST['contraseña']);  // Usamos 'contraseña' en lugar de 'password'
+            $contraseña = trim($_POST['contraseña']);  ¡
             $correo = trim($_POST['correo']);
 
             if (!empty($nombre_usuario) && !empty($contraseña) && !empty($correo)) {
                 // Hashear la contraseña
                 $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
 
-                // Intentar insertar los datos en la base de datos
+                ¡
                 try {
                     // Insertar usuario en la base de datos
                     $database->insert("tb_usuarios", [
                         "nombre_usuario" => $nombre_usuario,
-                        "contraseña" => $contraseña_hash,  // Usamos 'contraseña' en lugar de 'password'
+                        "contraseña" => $contraseña_hash, ¡
                         "correo" => $correo
                     ]);
 
-                    // Redirigir a la página de login después de registrar el usuario
+                
                     header('Location: login.php');
-                    exit();  // Detener la ejecución del script para evitar múltiples redirecciones
+                    exit(); ¡
 
                 } catch (Exception $e) {
                     echo "Error al registrar el usuario: " . $e->getMessage();

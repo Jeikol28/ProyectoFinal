@@ -1,11 +1,11 @@
 <?php
-    require 'config.php'; // Asegúrate de que este archivo contiene la configuración de la base de datos
+    require 'config.php'; 
 
     session_start();
 
     // Verifica si el formulario fue enviado
     if ($_POST) {
-        // Obtener los valores del formulario
+        
         $usuario = $_POST['nombre_usuario'];
         $contraseña = $_POST['contraseña'];
 
@@ -22,7 +22,7 @@
             header('Location: ./login.php'); 
             exit();
         } else {
-            // Si el usuario o la contraseña son incorrectos, mostrar error
+          
             $error = "Usuario o contraseña incorrectos.";
         }
     }
