@@ -5,25 +5,25 @@
         // Validar que los campos del formulario no estén vacíos
         if (isset($_POST['nombre_usuario'], $_POST['contraseña'], $_POST['correo'])) {
             $nombre_usuario = trim($_POST['nombre_usuario']);
-            $contraseña = trim($_POST['contraseña']);  ¡
+            $contraseña = trim($_POST['contraseña']);  
             $correo = trim($_POST['correo']);
 
             if (!empty($nombre_usuario) && !empty($contraseña) && !empty($correo)) {
                 // Hashear la contraseña
                 $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
 
-                ¡
+                
                 try {
                     // Insertar usuario en la base de datos
                     $database->insert("tb_usuarios", [
                         "nombre_usuario" => $nombre_usuario,
-                        "contraseña" => $contraseña_hash, ¡
+                        "contraseña" => $contraseña_hash, 
                         "correo" => $correo
                     ]);
 
                 
-                    header('Location: login.php');
-                    exit(); ¡
+                    header('Location: login.html');
+                    exit(); 
 
                 } catch (Exception $e) {
                     echo "Error al registrar el usuario: " . $e->getMessage();
@@ -48,6 +48,6 @@
 </head>
 <body>
     <h1>Usuario agregado correctamente, redirigiendo al login...</h1>
-    <p>Si no eres redirigido automáticamente, <a href="login.php">haz clic aquí</a>.</p>
+    <p>Si no eres redirigido automáticamente, <a href="login.html">haz clic aquí</a>.</p>
 </body>
 </html>

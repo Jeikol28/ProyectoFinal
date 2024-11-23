@@ -35,21 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Por favor, completa todos los campos.";
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Procesando Login</title>
-</head>
-<body>
-    <!-- Mostrar error si existe -->
-    <?php if (!empty($error)): ?>
-        <div style="color: red; text-align: center; margin-top: 10px;">
-            <p><?php echo htmlspecialchars($error); ?></p>
-        </div>
-    <?php endif; ?>
-</body>
-</html>
 
+// Si hay un error, redirigir a login.html con el error como parámetro
+if ($error) {
+    header("Location: login.html?error=" . urlencode($error));
+    exit();
+}
+?>
