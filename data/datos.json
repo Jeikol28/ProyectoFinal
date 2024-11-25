@@ -59,6 +59,62 @@
          "y": 50
       }
    ],
+   "enemigos": [
+      {
+         "nivel": 1,
+         "enemigos": [
+            {
+               "x": 200,
+               "y": 16,
+               "velocidadX": -150,
+               "velocidadY": 20
+            }
+           
+         ]
+      },
+      {
+         "nivel": 2,
+         "enemigos": [
+            {
+               "x": 150,
+               "y": 16,
+               "velocidadX": -200,
+               "velocidadY": 25
+            },
+            {
+               "x": 500,
+               "y": 16,
+               "velocidadX": 150,
+               "velocidadY": 25
+            }
+            
+         ]
+      },
+      {
+         "nivel": 3,
+         "enemigos": [
+            {
+               "x": 100,
+               "y": 16,
+               "velocidadX": 200,
+               "velocidadY": 30
+            },
+            {
+               "x": 400,
+               "y": 16,
+               "velocidadX": -150,
+               "velocidadY": 30
+            },
+            {
+               "x": 650,
+               "y": 16,
+               "velocidadX": 100,
+               "velocidadY": 30
+            }
+            
+         ]
+      }
+   ],
    "personaje": {
       "x": 100,
       "y": 450,

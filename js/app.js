@@ -230,14 +230,22 @@ function colectarEstrellas(jugador, estrella) {
 
 // Incrementar enemigos según nivel actual
 function agregarEnemigosPorNivel() {
+    // Reproducir sonido de peligro
     this.sound.play('sonidoPeligro', { volume: 0.7 });
-    let enemigosPorGrupo = nivelActual;
-    for (let i = 0; i < enemigosPorGrupo; i++) {
-        let x = Phaser.Math.Between(50, 850);
-        let enemigo = bombas.create(x, 16, 'enemigo');
-        enemigo.setBounce(1);
-        enemigo.setCollideWorldBounds(true);
-        enemigo.setVelocity(Phaser.Math.Between(-200, 200), 20);
+
+    // Obtener los enemigos del JSON para el nivel actual
+    let datos = this.cache.json.get('datos');
+    let enemigosPorNivel = datos.enemigos.find(nivel => nivel.nivel === nivelActual);
+
+    if (enemigosPorNivel) {
+        // Crear el grupo de enemigos
+        enemigosPorNivel.enemigos.forEach(enemigoData => {
+            // Crear el enemigo con sus características
+            let enemigo = bombas.create(enemigoData.x, enemigoData.y, 'enemigo');
+            enemigo.setBounce(1);
+            enemigo.setCollideWorldBounds(true);
+            enemigo.setVelocity(Phaser.Math.Between(-200, 200), enemigoData.velocidadY);
+        });
     }
 }
 
