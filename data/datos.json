@@ -1,0 +1,39 @@
+{
+    "plataformas": [
+       {
+          "x": 450,
+          "y": 650,
+          "imagen": "ground"
+       },
+       {
+          "x": 730,
+          "y": 350,
+          "imagen": "plataforma"
+       },
+       {
+          "x": 120,
+          "y": 250,
+          "imagen": "plataforma"
+       },
+       {
+          "x": 840,
+          "y": 150,
+          "imagen": "plataforma"
+       }
+    ],
+    "personaje": {
+       "x": 100,
+       "y": 450,
+       "movimientos": {
+          "izquierda": {
+             "velocidadX": -160
+          },
+          "derecha": {
+             "velocidadX": 160
+          },
+          "salto": {
+             "velocidadY": -370
+          }
+       }
+    }
+ }

@@ -54,6 +54,8 @@ function preload() {
     this.load.audio('sonidoPeligro', 'aud/peligro.mp3');
     this.load.audio('sonidoMuerte', 'aud/gameOver.wav');
     this.load.audio('sonidoPowerUp', 'aud/sonidoPowerUp.mp3');
+
+    this.load.json('datos', 'data/datos.json');
 }
 
 function create() {
@@ -62,12 +64,14 @@ function create() {
     musicaFondo = this.sound.add('musicaFondo', { volume: 0.3, loop: true });
     musicaFondo.play();
 
-    // Plataformas
-    platformas = this.physics.add.staticGroup();
-    platformas.create(450, 650, 'ground').refreshBody();
-    platformas.create(730, 350, 'plataforma');
-    platformas.create(120, 250, 'plataforma');
-    platformas.create(840, 150, 'plataforma');
+   // Cargar datos desde JSON
+   let datos = this.cache.json.get('datos');
+
+   // Plataformas desde JSON
+   platformas = this.physics.add.staticGroup();
+   datos.plataformas.forEach(plataforma => {
+       platformas.create(plataforma.x, plataforma.y, plataforma.imagen).refreshBody();
+   });
 
     // Jugador
     jugador = this.physics.add.sprite(100, 450, 'personaje');
