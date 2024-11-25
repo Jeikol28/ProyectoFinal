@@ -55,9 +55,21 @@ function preload() {
     this.load.audio('sonidoMuerte', 'aud/gameOver.wav');
     this.load.audio('sonidoPowerUp', 'aud/sonidoPowerUp.mp3');
 
-    this.load.json('datos', 'data/datos.json');
+   // this.load.json('datos', 'data/datos.json');
+   //cargar el json desde el backend
+   this.load.json('datos', 'http://localhost/proyectofinal/editor/api.php?id=2');
 }
 
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+ * Función de creación del juego.
+ *
+ * Aquí se crea el escenario, se cargan los datos de las plataformas y se crean
+ * los objetos del juego como el jugador, las estrellas, las bombas y el power-up
+ * del escudo. Se establecen las colisiones entre los objetos y se crean las
+ * animaciones del jugador.
+ */
+/******  799f2fcd-d69e-4d86-bfd0-983f4cc450df  *******/
 function create() {
     this.add.image(450, 300, 'escenario');
 
@@ -66,6 +78,7 @@ function create() {
 
    // Cargar datos desde JSON
    let datos = this.cache.json.get('datos');
+   console.log(datos, this.datos);
 
    // Plataformas desde JSON
    platformas = this.physics.add.staticGroup();
