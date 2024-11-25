@@ -74,7 +74,8 @@ function create() {
    });
 
     // Jugador
-    jugador = this.physics.add.sprite(100, 450, 'personaje');
+    let posInicial = datos.personaje;
+    jugador = this.physics.add.sprite(posInicial.x, posInicial.y, 'personaje');
     jugador.setCollideWorldBounds(true);
     jugador.setBounce(0.2);
     this.physics.add.collider(jugador, platformas);
@@ -130,12 +131,14 @@ function create() {
 function update() {
     if (gameOver) return;
 
+    let movimientos = this.cache.json.get('datos').personaje.movimientos;
+
     if (cursorKeys.left.isDown) {
-        jugador.setVelocityX(-160);
+        jugador.setVelocityX(movimientos.izquierda.velocidadX);
         jugador.anims.play('left', true);
 
     } else if (cursorKeys.right.isDown) {
-        jugador.setVelocityX(160);
+        jugador.setVelocityX(movimientos.derecha.velocidadX);
         jugador.anims.play('right', true);
     } else {
         jugador.setVelocityX(0);
@@ -143,29 +146,33 @@ function update() {
     }
 
     if (cursorKeys.up.isDown && jugador.body.touching.down) {
-        jugador.setVelocityY(-370);
+        jugador.setVelocityY(movimientos.salto.velocidadY);
     }
 }
-
 // Inicializar un nuevo grupo de estrellas
 function inicializarEstrellas() {
+    // Limpiar las estrellas previas
     starts.clear(true, true);
-    let posicionesTotales = [
-        { x: 50, y: 0 }, { x: 150, y: 0 }, { x: 250, y: 0 },
-        { x: 350, y: 0 }, { x: 450, y: 0 }, { x: 550, y: 0 },
-        { x: 730, y: 250 }, { x: 830, y: 250 }, { x: 840, y: 50 }
-    ];
 
+    // Obtener los datos de las estrellas desde el JSON
+    let datos = this.cache.json.get('datos');
+    let posicionesTotales = datos.estrellas; 
+
+    // Mezclar las posiciones aleatoriamente
     Phaser.Utils.Array.Shuffle(posicionesTotales);
+
+    // Determinar el número de estrellas por grupo, dependiendo del nivel actual
     let totalEstrellas = estrellasPorGrupo[nivelActual - 1];
+
+    // Seleccionar las posiciones según el total de estrellas que necesitamos
     let posicionesSeleccionadas = posicionesTotales.slice(0, totalEstrellas);
 
+    // Crear las estrellas en las posiciones seleccionadas
     posicionesSeleccionadas.forEach(pos => {
         let estrella = starts.create(pos.x, pos.y, 'estrella');
         estrella.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 }
-
 // Generar el power-up escudo
 function generarPowerUpEscudo(poder) {
     let x = Phaser.Math.Between(50, 850);

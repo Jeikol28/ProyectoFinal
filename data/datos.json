@@ -1,39 +1,77 @@
 {
-    "plataformas": [
-       {
-          "x": 450,
-          "y": 650,
-          "imagen": "ground"
-       },
-       {
-          "x": 730,
-          "y": 350,
-          "imagen": "plataforma"
-       },
-       {
-          "x": 120,
-          "y": 250,
-          "imagen": "plataforma"
-       },
-       {
-          "x": 840,
-          "y": 150,
-          "imagen": "plataforma"
-       }
-    ],
-    "personaje": {
-       "x": 100,
-       "y": 450,
-       "movimientos": {
-          "izquierda": {
-             "velocidadX": -160
-          },
-          "derecha": {
-             "velocidadX": 160
-          },
-          "salto": {
-             "velocidadY": -370
-          }
-       }
-    }
- }
+   "plataformas": [
+      {
+         "x": 450,
+         "y": 650,
+         "imagen": "ground"
+      },
+      {
+         "x": 730,
+         "y": 350,
+         "imagen": "plataforma"
+      },
+      {
+         "x": 120,
+         "y": 250,
+         "imagen": "plataforma"
+      },
+      {
+         "x": 840,
+         "y": 150,
+         "imagen": "plataforma"
+      }
+   ],
+   "estrellas": [
+      {
+         "x": 50,
+         "y": 0
+      },
+      {
+         "x": 150,
+         "y": 0
+      },
+      {
+         "x": 250,
+         "y": 0
+      },
+      {
+         "x": 350,
+         "y": 0
+      },
+      {
+         "x": 450,
+         "y": 0
+      },
+      {
+         "x": 550,
+         "y": 0
+      },
+      {
+         "x": 730,
+         "y": 250
+      },
+      {
+         "x": 830,
+         "y": 250
+      },
+      {
+         "x": 840,
+         "y": 50
+      }
+   ],
+   "personaje": {
+      "x": 100,
+      "y": 450,
+      "movimientos": {
+         "izquierda": {
+            "velocidadX": -160
+         },
+         "derecha": {
+            "velocidadX": 160
+         },
+         "salto": {
+            "velocidadY": -370
+         }
+      }
+   }
+}
