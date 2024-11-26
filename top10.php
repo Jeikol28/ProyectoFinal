@@ -11,7 +11,6 @@ if ($result) {
 } else {
     $topScores = [];
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -21,19 +20,31 @@ if ($result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top 10 Jugadores</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.php">Inicio</a>
-            <a href="agregar.php">Agregar Puntaje</a>
+    <!-- Header -->
+    <header class="site-header">
+        <img src="img/logo.png" alt="Logo" class="logo">
+        <nav class="navbar">
+            <a href="index.php" class="nav-btn">Inicio</a>
+            <a href="inicioJuego.html" class="nav-btn">Jugar</a>
+            <a href="login.html" class="nav-btn">Login</a>
+            <a href="logout.php" class="nav-btn">Logout</a>
+            <a href="#" class="nav-btn">Tabla</a>
         </nav>
     </header>
 
-    <h2>Top 10 Jugadores</h2>
+    <main class="main-content">
+    <h2 class="page-title">Top 10 Jugadores</h2>
+
+    <!-- Botón para agregar un nuevo jugador y score -->
+    <div class="add-player-container">
+        <a href="agregar.php" class="btn-add-player">Agregar nuevo jugador y score</a>
+    </div>
 
     <!-- Tabla para mostrar los mejores 10 puntajes -->
-    <table>
+    <table class="top10-table">
         <thead>
             <tr>
                 <th>#</th>
@@ -57,6 +68,6 @@ if ($result) {
             <?php endif; ?>
         </tbody>
     </table>
-
+</main>
 </body>
 </html>

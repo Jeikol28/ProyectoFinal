@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Redirigir a la página de Top 10 después de la inserción
                 header('Location: top10.php');
-                exit(); 
+                exit(); // Asegúrate de detener la ejecución después de redirigir
             } catch (Exception $e) {
                 echo "Error al agregar el jugador: " . $e->getMessage();
             }
@@ -37,26 +37,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Jugador</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.php">Inicio</a>
-            <a href="top10.php">Top 10</a>
+    <!-- Header -->
+    <header class="site-header">
+        <img src="img/logo.png" alt="Logo" class="logo">
+        <nav class="navbar">
+            <a href="index.php" class="nav-btn">Inicio</a>
+            <a href="inicioJuego.html" class="nav-btn">Jugar</a>
+            <a href="login.html" class="nav-btn">Login</a>
+            <a href="logout.php" class="nav-btn">Logout</a>
+            <a href="top10.php" class="nav-btn">Tabla</a>
         </nav>
     </header>
 
-    <h2>Agregar Puntaje del Jugador</h2>
+    <div class="add-player-container">
+        <h2>Agregar Puntaje del Jugador</h2>
 
-    <form action="agregar.php" method="POST">
-        <label for="nombre_jugador">Nombre del Jugador:</label>
-        <input type="text" id="nombre_jugador" name="nombre_jugador" required><br>
+        <form action="agregar.php" method="POST">
+            <label for="nombre_jugador">Nombre del Jugador:</label>
+            <input type="text" id="nombre_jugador" name="nombre_jugador" required>
 
-        <label for="puntaje">Puntaje:</label>
-        <input type="number" id="puntaje" name="puntaje" required><br>
+            <label for="puntaje">Puntaje:</label>
+            <input type="number" id="puntaje" name="puntaje" required>
 
-        <button type="submit">Agregar</button>
-    </form>
-
+            <!-- Botón con la misma clase que en top10.php -->
+            <button type="submit" class="btn-add-player">Agregar</button>
+        </form>
+    </div>
 </body>
 </html>
