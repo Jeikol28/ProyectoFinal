@@ -4,7 +4,7 @@ session_start();
 // Verificar si la variable de sesión 'nombre_usuario' y 'rol' existen
 if (!isset($_SESSION['nombre_usuario']) || !isset($_SESSION['rol'])) {
     // Si no está logueado, redirigir al login
-    header('Location: login.php');
+    header('Location: login.html');
     exit();
 }
 ?>
