@@ -16,10 +16,12 @@ var config = {
     }
 };
 
+
+
 var game = new Phaser.Game(config);
 
 let timer;
-let longitud = 0;
+let longitud;
 
 // Variables globales
 var puntuacion = 0;
@@ -41,9 +43,11 @@ var escudoActivo = false;
 var duracionEscudo = 5000; // Duración del escudo en milisegundos
 var indicadorEscudo;
 
+
 function preload() {
     this.load.image('escenario', 'img/Prueba.png');
     this.load.image('plataforma', 'img/PlataformasJuego.png');
+    this.load.image('fondoInicio', 'img/fondoInicio.png');
     this.load.image('ground', 'img/ground.png');
     this.load.image('estrella', 'img/estrellaJuego.png');
     this.load.image('enemigo', 'img/bolaJuego.png');
@@ -72,6 +76,8 @@ function create() {
    // Cargar datos desde JSON
    let datos = this.cache.json.get('datos');
    console.log(datos, this.datos);
+
+   longitud = 0;
 
    //empezar seguimiento tiempo
    timer = this.time.addEvent({

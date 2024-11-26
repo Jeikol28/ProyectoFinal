@@ -1,19 +1,26 @@
 <?php
-    require 'config.php';  
+require 'config.php';  
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Validar que los campos del formulario no estén vacíos
-        if (isset($_POST['nombre_usuario'], $_POST['contraseña'], $_POST['correo'])) {
-            $nombre_usuario = trim($_POST['nombre_usuario']);
-            $contraseña = trim($_POST['contraseña']);  
-            $correo = trim($_POST['correo']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validar que los campos del formulario no estén vacíos
+    if (isset($_POST['nombre_usuario'], $_POST['contraseña'], $_POST['correo'])) {
+        $nombre_usuario = trim($_POST['nombre_usuario']);
+        $contraseña = trim($_POST['contraseña']);  
+        $correo = trim($_POST['correo']);
 
-            if (!empty($nombre_usuario) && !empty($contraseña) && !empty($correo)) {
-                // Hashear la contraseña
-                $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
+        if (!empty($nombre_usuario) && !empty($contraseña) && !empty($correo)) {
+            // Verificar si el nombre de usuario ya existe
+            try {
+                $usuarioExistente = $database->get("tb_usuarios", "nombre_usuario", [
+                    "nombre_usuario" => $nombre_usuario
+                ]);
 
-                
-                try {
+                if ($usuarioExistente) {
+                    echo "El nombre de usuario ya está en uso. Por favor, elige otro.";
+                } else {
+                    // Hashear la contraseña
+                    $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
+
                     // Insertar usuario en la base de datos
                     $database->insert("tb_usuarios", [
                         "nombre_usuario" => $nombre_usuario,
@@ -21,21 +28,21 @@
                         "correo" => $correo
                     ]);
 
-                
                     header('Location: login.html');
                     exit(); 
-
-                } catch (Exception $e) {
-                    echo "Error al registrar el usuario: " . $e->getMessage();
                 }
-            } else {
-                echo "Todos los campos son obligatorios.";
+            } catch (Exception $e) {
+                echo "Error al registrar el usuario: " . $e->getMessage();
             }
         } else {
-            echo "Faltan datos en el formulario.";
+            echo "Todos los campos son obligatorios.";
         }
+    } else {
+        echo "Faltan datos en el formulario.";
     }
+}
 ?>
+
 
 
 <!DOCTYPE html>
