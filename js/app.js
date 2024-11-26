@@ -18,6 +18,9 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+let timer;
+let longitud = 0;
+
 // Variables globales
 var puntuacion = 0;
 var puntuacionText;
@@ -60,16 +63,6 @@ function preload() {
    this.load.json('datos', 'http://localhost/proyectofinal/editor/api.php?id=2');
 }
 
-/*************  ✨ Codeium Command ⭐  *************/
-/**
- * Función de creación del juego.
- *
- * Aquí se crea el escenario, se cargan los datos de las plataformas y se crean
- * los objetos del juego como el jugador, las estrellas, las bombas y el power-up
- * del escudo. Se establecen las colisiones entre los objetos y se crean las
- * animaciones del jugador.
- */
-/******  799f2fcd-d69e-4d86-bfd0-983f4cc450df  *******/
 function create() {
     this.add.image(450, 300, 'escenario');
 
@@ -79,6 +72,14 @@ function create() {
    // Cargar datos desde JSON
    let datos = this.cache.json.get('datos');
    console.log(datos, this.datos);
+
+   //empezar seguimiento tiempo
+   timer = this.time.addEvent({
+       delay: 1000,
+       loop: true,
+       callbackScope: this,
+       callback: this.startTracking
+   });
 
    // Plataformas desde JSON
    platformas = this.physics.add.staticGroup();
@@ -140,6 +141,43 @@ function create() {
     // Indicador del escudo
     indicadorEscudo = this.add.text(16, 50, '', { fontSize: '24px', fill: 'yellow' });
 }
+
+function startTracking() {
+    longitud += 1;
+    console.log("tracking ->" + longitud); 
+}
+
+function saveData(haCerrado, nivel) {
+    fetch('http://localhost/proyectofinal/seguimiento.php', {
+        method: 'POST',
+        mode: 'cors', // Cambiado a 'cors' para permitir solicitudes de diferentes orígenes
+        credentials: 'include', // Usado si necesitas enviar cookies o autenticación, de lo contrario, puede ser omitido
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+         "navegador": navigator.userAgent,
+          "pantalla": screen.width + "x" + screen.height,
+          "longitud": longitud,
+          "nivel": nivel,
+          "cerrado": haCerrado
+        }),
+        keepalive: true // Permite el envío de datos incluso si la página se cierra
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+    })
+    .then((data) => {
+        console.log("Respuesta del servidor:", data);
+    })
+    .catch((error) => {
+        console.error("Error al enviar los datos:", error);
+    });
+}
+
 
 function update() {
     if (gameOver) return;
@@ -277,6 +315,11 @@ function golpeBomba(jugador, bomba) {
         jugador.setTint(0xff0000);
         jugador.anims.play('static');
         gameOver = true;
+         // Enviar datos al servidor al primer golpe
+         if (!this.hasFetched) {
+            this.hasFetched = true; // Bandera para evitar múltiples envíos
+            saveData("No", 1); // Función que envía los datos al servidor
+        }
     }
 }
 
