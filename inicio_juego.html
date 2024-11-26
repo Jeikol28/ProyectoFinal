@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso al Juego</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="start-game-container">
+        <h1>Bienvenido a Wanderer's Ascent</h1>
+        <form action="guardar_jugador.php" method="POST" id="startGameForm">
+            <label for="nombre_jugador">Nombre del Jugador:</label>
+            <input type="text" id="nombre_jugador" name="nombre_jugador" placeholder="Ingresa tu nombre" required>
+
+            <button type="submit" id="startGameBtn">Iniciar Juego</button>
+        </form>
+    </div>
+
+    <script>
+        // Agregar evento al formulario para redirigir después de enviar
+        document.getElementById('startGameForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevenir el envío del formulario para realizar la redirección
+            const nombreJugador = document.getElementById('nombre_jugador').value.trim();
+            
+            if (nombreJugador) {
+                // Aquí puedes hacer algo con el nombre, por ejemplo guardarlo en el almacenamiento local
+                localStorage.setItem('nombreJugador', nombreJugador); // Guardar nombre en localStorage
+                
+                // Ahora redirigir a la página de juego
+                window.location.href = 'jugar.html';  // Redirige a jugar.html
+            } else {
+                alert('Por favor ingresa tu nombre');
+            }
+        });
+    </script>
+</body>
+</html>

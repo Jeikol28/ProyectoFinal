@@ -330,6 +330,13 @@ function mostrarTransicion(nivel) {
     setTimeout(() => mensaje.destroy(), 2000);
 }
 
+window.addEventListener('beforeunload', function (event) {
+    // Triggered when the tab or browser is closing
+    console.log('Browser tab is being closed or navigated away.');
+    saveData("Yes", 1);
+    
+  });
+
 //Pantalla horizontal
 // Agrega un evento que se ejecuta cuando la ventana se redimensiona
 window.addEventListener('resize', function() {
