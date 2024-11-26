@@ -7,6 +7,20 @@ if (!isset($_SESSION['nombre_usuario']) || !isset($_SESSION['rol'])) {
     header('Location: login.php');
     exit();
 }
+
+// Lógica para redirigir según el rol del usuario al hacer clic en "Tabla"
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SESSION['rol'] === 'admin') {
+        header('Location: admin_dashboard.php');
+        exit();
+    } elseif ($_SESSION['rol'] === 'normal') {
+        header('Location: top_10.php');
+        exit();
+    } else {
+        // Si el rol no es válido
+        echo 'No tienes permisos para acceder a esta sección.';
+    }
+}
 ?>
 
 <!doctype html>
@@ -97,22 +111,6 @@ if (!isset($_SESSION['nombre_usuario']) || !isset($_SESSION['rol'])) {
       </nav>
   </div>
 </footer>
-<script>
-    // Lógica para redirigir al usuario a la sección correspondiente según su rol
-    document.getElementById('tabla-btn').addEventListener('click', function() {
-      // Obtener el rol del usuario desde la sesión PHP (pasado al script JavaScript)
-      <?php if (isset($_SESSION['rol'])): ?>
-        var userRole = '<?php echo $_SESSION['rol']; ?>';
-        if (userRole === 'admin') {
-          window.location.href = 'admin_dashboard.php'; // Redirige al admin
-        } else if (userRole === 'normal') {
-          window.location.href = 'top_10.php'; // Redirige al usuario normal
-        }
-      <?php else: ?>
-        alert('No tienes permisos para acceder a esta sección.');
-      <?php endif; ?>
-    });
-  </script>
-  
+
 </body>
 </html>
