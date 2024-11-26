@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_jugador'], $_P
 
 // Obtener la lista de jugadores para editar o eliminar
 $jugadores = $database->select("tb_jugadores", ["id_jugador", "nombre_jugador", "puntaje"]);
-
 ?>
 
 <!DOCTYPE html>
@@ -36,57 +35,67 @@ $jugadores = $database->select("tb_jugadores", ["id_jugador", "nombre_jugador", 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.php">Inicio</a>
+    <!-- Header -->
+    <header class="site-header">
+        <img src="img/logo.png" alt="Logo" class="logo">
+        <nav class="navbar">
+            <a href="index.php" class="nav-btn">Inicio</a>
+            <a href="inicioJuego.html" class="nav-btn">Jugar</a>
+            <a href="login.html" class="nav-btn">Login</a>
+            <a href="logout.php" class="nav-btn">Logout</a>
+            <a href="top10.php" class="nav-btn">Tabla</a>
         </nav>
     </header>
 
-    <h2>Panel Admin: Agregar, Editar y Eliminar Jugadores</h2>
+    <main class="main-content">
+        <h2 class="page-title">Panel Admin: Agregar, Editar y Eliminar Jugadores</h2>
 
-    <!-- Formulario para agregar jugador -->
-    <h3>Agregar Jugador</h3>
-    <form action="admin.php" method="POST">
-        <label for="nombre_jugador">Nombre del Jugador:</label>
-        <input type="text" id="nombre_jugador" name="nombre_jugador" required><br>
+        <!-- Formulario para agregar jugador -->
+        <div class="add-player-container">
+            <h3>Agregar Jugador</h3>
+            <form action="admin.php" method="POST" class="form-player">
+                <label for="nombre_jugador">Nombre del Jugador:</label>
+                <input type="text" id="nombre_jugador" name="nombre_jugador" required class="input-field">
 
-        <label for="puntaje">Puntaje:</label>
-        <input type="number" id="puntaje" name="puntaje" required><br>
+                <label for="puntaje">Puntaje:</label>
+                <input type="number" id="puntaje" name="puntaje" required class="input-field">
 
-        <button type="submit">Agregar</button>
-    </form>
+                <button type="submit" class="btn-add-player">Agregar</button>
+            </form>
+        </div>
 
-    <h3>Lista de Jugadores</h3>
-    <!-- Mostrar la lista de jugadores con opciones de editar y eliminar -->
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre del Jugador</th>
-                <th>Puntaje</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (count($jugadores) > 0): ?>
-                <?php foreach ($jugadores as $jugador): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($jugador['nombre_jugador']) ?></td>
-                        <td><?= $jugador['puntaje'] ?></td>
-                        <td>
-                            <a href="editar.php?id=<?= $jugador['id_jugador'] ?>">Editar</a> | 
-                            <a href="eliminar.php?id=<?= $jugador['id_jugador'] ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este jugador?')">Eliminar</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+        <!-- Lista de jugadores -->
+        <h3 class="page-subtitle">Lista de Jugadores</h3>
+        <table class="top10-table">
+            <thead>
                 <tr>
-                    <td colspan="3">No hay jugadores registrados.</td>
+                    <th>Nombre del Jugador</th>
+                    <th>Puntaje</th>
+                    <th>Acciones</th>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+                <?php if (count($jugadores) > 0): ?>
+                    <?php foreach ($jugadores as $jugador): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($jugador['nombre_jugador']) ?></td>
+                            <td><?= $jugador['puntaje'] ?></td>
+                            <td>
+                                <a href="editar.php?id=<?= $jugador['id_jugador'] ?>" class="btn-edit">Editar</a>
+                                <a href="eliminar.php?id=<?= $jugador['id_jugador'] ?>" class="btn-delete" onclick="return confirm('¿Estás seguro de que deseas eliminar este jugador?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="3">No hay jugadores registrados.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>
