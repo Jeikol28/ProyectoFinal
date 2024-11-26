@@ -37,11 +37,11 @@
         }
 
         select {
-            appearance: none; // Eliminar las flechas predeterminadas en algunos navegadores
+            appearance: none; 
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" viewBox="0 0 7 5"><path d="M3.5 0L7 5H0z" fill="#fff"/></svg>') no-repeat right 10px center;
-            background-color: #333;  // Fondo oscuro para el select
+            background-color: #333;  
             background-size: 12px;
-            color: #fff; // Texto blanco en el select
+            color: #fff; 
             font-size: 1rem;
         }
 
