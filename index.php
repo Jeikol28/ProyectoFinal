@@ -11,10 +11,10 @@ if (!isset($_SESSION['nombre_usuario']) || !isset($_SESSION['rol'])) {
 // Lógica para redirigir según el rol del usuario al hacer clic en "Tabla"
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_SESSION['rol'] === 'admin') {
-        header('Location: admin_dashboard.php');
+        header('Location: admin.php');
         exit();
     } elseif ($_SESSION['rol'] === 'normal') {
-        header('Location: top_10.php');
+        header('Location: top10.php');
         exit();
     } else {
         // Si el rol no es válido

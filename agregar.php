@@ -1,22 +1,32 @@
 <?php
-// Incluir la conexión a la base de datos
-include('config.php');
+require 'config.php';
 
-// Verificar si se envió el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Recoger los datos del formulario
-    $nombre = $_POST['nombre'];
-    $puntaje = $_POST['puntaje'];
+    // Validar que los campos del formulario no estén vacíos
+    if (isset($_POST['nombre_jugador'], $_POST['puntaje'])) {
+        $nombre_jugador = trim($_POST['nombre_jugador']);
+        $puntaje = trim($_POST['puntaje']);
 
-    // Insertar los datos en la base de datos
-    $stmt = $pdo->prepare("INSERT INTO tb_jugadores (nombre_jugador, puntaje) VALUES (:nombre, :puntaje)");
-    $stmt->bindParam(':nombre', $nombre);
-    $stmt->bindParam(':puntaje', $puntaje);
-    $stmt->execute();
+        if (!empty($nombre_jugador) && !empty($puntaje)) {
+            try {
+                // Insertar jugador y puntaje en la base de datos
+                $database->insert("tb_jugadores", [
+                    "nombre_jugador" => $nombre_jugador,
+                    "puntaje" => $puntaje
+                ]);
 
-    // Redirigir al archivo top10.php para mostrar los mejores puntajes
-    header("Location: top10.php");
-    exit();
+                // Redirigir a la página de Top 10 después de la inserción
+                header('Location: top10.php');
+                exit(); 
+            } catch (Exception $e) {
+                echo "Error al agregar el jugador: " . $e->getMessage();
+            }
+        } else {
+            echo "Todos los campos son obligatorios.";
+        }
+    } else {
+        echo "Faltan datos en el formulario.";
+    }
 }
 ?>
 
@@ -25,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Puntaje</title>
+    <title>Agregar Jugador</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -33,19 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav>
             <a href="index.php">Inicio</a>
             <a href="top10.php">Top 10</a>
-            <a href="logout.php">Logout</a>
         </nav>
     </header>
 
-    <h2>Agregar Puntaje</h2>
+    <h2>Agregar Puntaje del Jugador</h2>
 
-    <!-- Formulario para agregar puntaje -->
     <form action="agregar.php" method="POST">
-        <label for="nombre">Nombre del Jugador:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <label for="nombre_jugador">Nombre del Jugador:</label>
+        <input type="text" id="nombre_jugador" name="nombre_jugador" required><br>
 
         <label for="puntaje">Puntaje:</label>
-        <input type="number" id="puntaje" name="puntaje" required>
+        <input type="number" id="puntaje" name="puntaje" required><br>
 
         <button type="submit">Agregar</button>
     </form>
