@@ -46,19 +46,23 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Jugador</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <h2>Editar Jugador</h2>
+    <div class="editar-jugador">
+        <h2>Editar Jugador</h2>
 
-    <form action="editar.php?id=<?= $jugador['id_jugador'] ?>" method="POST">
-        <label for="nombre_jugador">Nombre del Jugador:</label>
-        <input type="text" id="nombre_jugador" name="nombre_jugador" value="<?= htmlspecialchars($jugador['nombre_jugador']) ?>" required><br>
+        <form action="editar.php?id=<?= $jugador['id_jugador'] ?>" method="POST">
+            <label for="nombre_jugador">Nombre del Jugador:</label>
+            <input type="text" id="nombre_jugador" name="nombre_jugador" value="<?= htmlspecialchars($jugador['nombre_jugador']) ?>" required><br>
 
-        <label for="puntaje">Puntaje:</label>
-        <input type="number" id="puntaje" name="puntaje" value="<?= $jugador['puntaje'] ?>" required><br>
+            <label for="puntaje">Puntaje:</label>
+            <input type="number" id="puntaje" name="puntaje" value="<?= $jugador['puntaje'] ?>" required><br>
 
-        <button type="submit">Actualizar</button>
-    </form>
-
+            <button type="submit">Actualizar</button>
+        </form>
+    </div>
 </body>
 </html>
+
