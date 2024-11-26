@@ -47,7 +47,6 @@ var indicadorEscudo;
 function preload() {
     this.load.image('escenario', 'img/Prueba.png');
     this.load.image('plataforma', 'img/PlataformasJuego.png');
-    
     this.load.image('ground', 'img/ground.png');
     this.load.image('estrella', 'img/estrellaJuego.png');
     this.load.image('enemigo', 'img/bolaJuego.png');
