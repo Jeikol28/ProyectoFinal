@@ -23,9 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Iniciar sesión
             $_SESSION['id_usuario'] = $usuarioDB[0]['id_usuario'];
             $_SESSION['nombre_usuario'] = $usuarioDB[0]['nombre_usuario'];
+            $_SESSION['rol'] = $usuarioDB[0]['rol']; // Guardar el rol del usuario
 
             // Redirigir al usuario a la página principal
-            header('Location: index.html');
+            header('Location: index.php');
             exit();
         } else {
             // Error: Usuario o contraseña incorrectos
