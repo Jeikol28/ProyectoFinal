@@ -456,8 +456,65 @@ body {
   text-decoration: underline;
 }
 
-.register-container .register-box form label, .register-container .register-box form input, .register-container .register-box form button {
+.register-container .register-box h1 {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+.register-container .register-box label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.register-container .register-box input,
+.register-container .register-box select {
+  width: 100%;
+  padding: 0.75rem;
   margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+}
+.register-container .register-box input:focus,
+.register-container .register-box select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.register-container .register-box select {
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" viewBox="0 0 7 5"><path d="M3.5 0L7 5H0z" fill="#fff"/></svg>') no-repeat right 10px center;
+  background-color: #333;
+  background-size: 12px;
+  color: #fff;
+  font-size: 1rem;
+}
+.register-container .register-box button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.register-container .register-box button:hover {
+  background-color: #0056b3;
+}
+.register-container .register-box p {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+.register-container .register-box p a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.register-container .register-box p a:hover {
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=main.css.map */

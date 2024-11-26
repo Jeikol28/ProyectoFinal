@@ -1,16 +1,20 @@
 <?php
-require 'config.php';  
+require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar que los campos del formulario no estén vacíos
-    if (isset($_POST['nombre_usuario'], $_POST['contraseña'], $_POST['correo'])) {
+    if (isset($_POST['nombre_usuario'], $_POST['contraseña'], $_POST['correo'], $_POST['rol'])) {
         $nombre_usuario = trim($_POST['nombre_usuario']);
         $contraseña = trim($_POST['contraseña']);  
         $correo = trim($_POST['correo']);
+        $rol = trim($_POST['rol']); // 'admin' o 'normal'
 
-        if (!empty($nombre_usuario) && !empty($contraseña) && !empty($correo)) {
-            // Verificar si el nombre de usuario ya existe
+        if (!empty($nombre_usuario) && !empty($contraseña) && !empty($correo) && !empty($rol)) {
+            // Hashear la contraseña
+            $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
+
             try {
+                // Verificar si el nombre de usuario ya existe
                 $usuarioExistente = $database->get("tb_usuarios", "nombre_usuario", [
                     "nombre_usuario" => $nombre_usuario
                 ]);
@@ -18,14 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($usuarioExistente) {
                     echo "El nombre de usuario ya está en uso. Por favor, elige otro.";
                 } else {
-                    // Hashear la contraseña
-                    $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
-
-                    // Insertar usuario en la base de datos
+                    // Insertar usuario en la base de datos con el rol especificado
                     $database->insert("tb_usuarios", [
                         "nombre_usuario" => $nombre_usuario,
                         "contraseña" => $contraseña_hash, 
-                        "correo" => $correo
+                        "correo" => $correo,
+                        "rol" => $rol // Asignar el rol al usuario
                     ]);
 
                     header('Location: login.html');
@@ -42,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 
 

@@ -1,12 +1,77 @@
+// Estilos globales para la pantalla de registro (hereda de login-container)
 .register-container {
-    @extend .login-container;
+    @extend .login-container; // Extiende las propiedades de .login-container
 
     .register-box {
-        @extend .login-box;
+        @extend .login-box; // Extiende las propiedades de .login-box
 
-        form {
-            label, input, button {
-                margin-bottom: 1rem;
+        // Ajuste de estilos específicos para el formulario de registro
+        h1 {
+            font-size: 1.6rem;  // Aumento el tamaño de la fuente para una mejor visibilidad
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #333;  // Fondo más oscuro para los campos
+            color: #fff; // Texto blanco para los campos
+            font-size: 1rem;
+
+            &:focus {
+                border-color: #007bff; // Bordes azules al hacer foco
+                outline: none;
+            }
+        }
+
+        select {
+            appearance: none; // Eliminar las flechas predeterminadas en algunos navegadores
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" viewBox="0 0 7 5"><path d="M3.5 0L7 5H0z" fill="#fff"/></svg>') no-repeat right 10px center;
+            background-color: #333;  // Fondo oscuro para el select
+            background-size: 12px;
+            color: #fff; // Texto blanco en el select
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 1.1rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+
+        p {
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+
+            a {
+                color: #007bff;
+                font-weight: bold;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
     }
