@@ -330,7 +330,7 @@ function golpeBomba(jugador, bomba) {
         // Redirigir a la página de inicio después de un breve retraso
         setTimeout(() => {
             window.location.href = "inicioJuego.html";
-            console.log("Redirigiendo a inicioJuego.html...");
+            console.log("Redirigiendo a inicio...");
         }, 2000); 
     }
 }
