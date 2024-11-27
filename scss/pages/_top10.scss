@@ -1,46 +1,109 @@
 
 .top10-table {
-  width: 100%; /* Ancho completo */
-  margin: 2rem auto; /* Centrada con espacio superior e inferior */
-  border-collapse: collapse; /* Elimina los espacios entre las celdas */
-  font-family: Arial, sans-serif; /* Fuente legible */
-  font-size: 1rem; /* Tamaño de fuente */
-  background-color: #222; /* Fondo oscuro general */
-  color: #fff; /* Texto blanco */
+  width: 100%; 
+  margin: 2rem auto; 
+  border-collapse: collapse; 
+  font-family: Arial, sans-serif;
+  font-size: 1rem; 
+  background-color: #222; 
+  color: #fff; 
 }
 
 /* Estilo para las celdas y bordes */
 .top10-table th,
 .top10-table td {
-  padding: 1rem; /* Espaciado interno */
-  text-align: center; /* Centrado horizontal */
-  border: 1px solid #444; /* Bordes oscuros */
+  padding: 1rem; 
+  text-align: center; 
+  border: 1px solid #444; 
 }
 
 /* Estilo específico para los encabezados */
 .top10-table th {
-  background-color: #444; /* Fondo gris oscuro */
-  color: #fff; /* Texto blanco */ 
-  font-weight: bold; /* Texto en negrita */
+  background-color: #444; 
+  color: #fff; 
+  font-weight: bold; 
 }
 
-/* Fondo alternado en filas (opcional, si lo deseas) */
+
 .top10-table tr:nth-child(odd) {
-  background-color: #333; /* Fondo ligeramente oscuro */
+  background-color: #333; 
 }
 
 .top10-table tr:nth-child(even) {
-  background-color: #2a2a2a; /* Fondo ligeramente más claro */
+  background-color: #2a2a2a;
 }
 
 /* Efecto hover para las filas */
 .top10-table tr:hover {
-  background-color: #555; /* Color más claro al pasar el cursor */
-  cursor: pointer; /* Cambia a un puntero */
+  background-color: #555; 
+  cursor: pointer; 
 }
 
 /* Resalta la primera columna (opcional) */
 .top10-table td:first-child {
   font-weight: bold;
-  color: #ffcc00; /* Color amarillo para destacar */
+  color: #fff; 
+}
+
+/* Contenedor para agregar jugador */
+.add-player-container {
+  background-color: #f8f8f8;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 20px auto; 
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-player-container h3 {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+/* Estilo del formulario */
+.form-player {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-player label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* Botón para agregar jugador */
+.btn-add-player {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-player:hover {
+  background-color: #45a049;
+}
+
+.btn-add-player:focus {
+  outline: none;
 }
