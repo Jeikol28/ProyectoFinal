@@ -517,112 +517,50 @@ body {
   text-decoration: underline;
 }
 
-.main-content {
-  padding: 2rem;
-}
-.main-content .page-title {
-  text-align: center;
-  font-size: 2rem;
-  color: #fff;
-}
-
 .top10-table {
-  width: 100%;
-  margin: 2rem auto;
-  border-collapse: collapse;
+  width: 100%; /* Ancho completo */
+  margin: 2rem auto; /* Centrada con espacio superior e inferior */
+  border-collapse: collapse; /* Elimina los espacios entre las celdas */
+  font-family: Arial, sans-serif; /* Fuente legible */
+  font-size: 1rem; /* Tamaño de fuente */
+  background-color: #222; /* Fondo oscuro general */
+  color: #fff; /* Texto blanco */
 }
-.top10-table th, .top10-table td {
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid #ddd;
+
+/* Estilo para las celdas y bordes */
+.top10-table th,
+.top10-table td {
+  padding: 1rem; /* Espaciado interno */
+  text-align: center; /* Centrado horizontal */
+  border: 1px solid #444; /* Bordes oscuros */
 }
+
+/* Estilo específico para los encabezados */
 .top10-table th {
-  background-color: #444;
-  color: #fff;
+  background-color: #444; /* Fondo gris oscuro */
+  color: #fff; /* Texto blanco */
+  font-weight: bold; /* Texto en negrita */
 }
+
+/* Fondo alternado en filas (opcional, si lo deseas) */
+.top10-table tr:nth-child(odd) {
+  background-color: #333; /* Fondo ligeramente oscuro */
+}
+
 .top10-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #2a2a2a; /* Fondo ligeramente más claro */
 }
+
+/* Efecto hover para las filas */
 .top10-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #555; /* Color más claro al pasar el cursor */
+  cursor: pointer; /* Cambia a un puntero */
 }
 
-.add-player-container {
-  text-align: center;
-  margin: 2rem 0;
-}
-
-.btn-add-player {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+/* Resalta la primera columna (opcional) */
+.top10-table td:first-child {
   font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
-}
-.btn-add-player:hover {
-  background-color: #007bff;
-  transform: scale(1.05);
-}
-.btn-add-player:active {
-  background-color: #007bff;
-  transform: scale(0.98);
-}
-
-.add-player-container {
-  max-width: 400px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.add-player-container h2 {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-}
-.add-player-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.add-player-container form label {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333;
-}
-.add-player-container form input {
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #333;
-}
-.add-player-container form input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-.add-player-container form button {
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-.add-player-container form button:hover {
-  background-color: #0056b3;
+  color: #ffcc00; /* Color amarillo para destacar */
 }
 
 .editar-jugador {
