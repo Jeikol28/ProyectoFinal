@@ -316,7 +316,7 @@ function golpeBomba(jugador, bomba) {
         bomba.disableBody(true, true);
     } else {
         this.sound.play('sonidoMuerte', { volume: 0.7 });
-        
+        this.physics.pause();
         jugador.setTint(0xff0000);
         jugador.anims.play('static');
         gameOver = true;
@@ -327,9 +327,6 @@ function golpeBomba(jugador, bomba) {
             saveData("No", 1); // Función que envía los datos al servidor
         }
 
-        // Redirigir a la página de inicio 
-        console.log("Redirigiendo a inicioJuego.html");
-        window.location.href = "inicioJuego.html";
     }
 }
 
