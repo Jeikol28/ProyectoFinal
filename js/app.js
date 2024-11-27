@@ -320,13 +320,21 @@ function golpeBomba(jugador, bomba) {
         jugador.setTint(0xff0000);
         jugador.anims.play('static');
         gameOver = true;
-         // Enviar datos al servidor al primer golpe
-         if (!this.hasFetched) {
+
+        // Enviar datos al servidor al primer golpe
+        if (!this.hasFetched) {
             this.hasFetched = true; // Bandera para evitar múltiples envíos
             saveData("No", 1); // Función que envía los datos al servidor
         }
+
+        // Redirigir a la página de inicio después de un breve retraso
+        setTimeout(() => {
+            window.location.href = "inicioJuego.html";
+            console.log("Redirigiendo a inicioJuego.html...");
+        }, 2000); 
     }
 }
+
 
 // Mostrar transición de nivel
 function mostrarTransicion(nivel) {
